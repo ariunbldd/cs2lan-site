@@ -26,3 +26,21 @@ export const store = {
     } catch {}
   }
 }
+
+export const uploadAvatar = async (file, playerName) => {
+  try {
+    const ext = file.name.split('.').pop()
+    const fileName = `${playerName.replace(/\s+/g, '_')}_${Date.now()}.${ext}`
+    const { error } = await supabase.storage
+      .from('avatars')
+      .upload(fileName, file, { cacheControl: '3600', upsert: true })
+    if (error) throw error
+    const { data: urlData } = supabase.storage
+      .from('avatars')
+      .getPublicUrl(fileName)
+    return urlData.publicUrl
+  } catch (err) {
+    console.error('Upload алдаа:', err)
+    return null
+  }
+}
