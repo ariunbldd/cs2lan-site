@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { store } from './supabase.js'
 
 const ADMIN_PW = "lan2024";
 const FEE = 3000;
@@ -14,7 +13,15 @@ const C = {
 };
 
 // ─── Shared storage (neelttei: everyone sees same data) ───
-
+const store = {
+  async get(k) {
+    try { const r = await window.storage.get(k, true); return r ? JSON.parse(r.value) : null; }
+    catch { return null; }
+  },
+  async set(k, v) {
+    try { await window.storage.set(k, JSON.stringify(v), true); } catch {}
+  }
+};
 
 const uid = () => Math.random().toString(36).slice(2, 8).toUpperCase();
 const fmt = d => d ? new Date(d).toLocaleDateString("en-GB", { year:"numeric", month:"short", day:"numeric" }) : "";
