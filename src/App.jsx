@@ -654,7 +654,7 @@ function PlayersPage({playerList,allPlayerNames,playerProfiles,saveProfiles}) {
               <Btn onClick={saveEdit}>Хадгалах</Btn>
               <Btn variant="secondary" onClick={()=>setEditing(false)}>Болих</Btn>
             </div>
-          </Card>
+          </Card> 
         )}
 
         <div style={{fontSize:11,color:C.muted,fontWeight:700,letterSpacing:"1px",marginBottom:12}}>СТАТИСТИК</div>
